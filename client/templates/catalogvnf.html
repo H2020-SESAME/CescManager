@@ -1,0 +1,122 @@
+<template name="catalogvnf">
+
+
+	  <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Catalog - Virtual Network Functions
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-folder-open"></i>Catalog</a></li>
+            <li><a href="#">Virtual Network Functions</a></li>
+
+            
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          
+		  
+		  
+		  <div class="row">
+		  <div class="col-md-4">
+
+		  	<div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Add VNF</h3>
+            </div>
+            <!-- /.box-header -->
+            	<div class="box-body">
+
+            		<div class="form-group">
+                  <label for="exampleInputEmail1">VNF Name</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter VNF name">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">VNF Description</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter VNF short description">
+                </div>
+
+                	<div class="form-group">
+                	  <label for="exampleInputFile">VNF Descriptor</label>
+                	  <input type="file" id="exampleInputFile">
+               		</div>
+
+            		<div class="form-group">
+                	  <label for="exampleInputFile">VNF Image</label>
+                	  <input type="file" id="exampleInputFile">
+               		</div>
+
+               		<br>
+               		<button type="button" class="btn btn-block btn-primary">Upload</button>
+
+            	</div>
+        	</div>
+		  </div>
+		  <div class="col-md-8">
+		  
+
+
+          <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">VNF List</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table class="table table-bordered">
+                <tbody><tr>
+                  <th style="width: 10px">ID</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th style="width: 40px"></th>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>vTU</td>
+                  <td>Transcoding for everything powered by FFMPEG</td>
+                  <td><a href="#"><span class="badge bg-red">X</span></a></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>vFW</td>
+                  <td>Firewall with GUI using the linux IPTABLES</td>
+                  <td><a href="#"><span class="badge bg-red">X</span></a></td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>vTC</td>
+                  <td>NDPI and DPDK deep packet inspection</td>
+                  <td><a href="#"><span class="badge bg-red">X</span></a></td>
+                </tr>
+              </tbody></table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+        
+        
+
+
+				
+
+
+
+              </div><!-- /.col -->		  	  
+			</div><!-- /.row -->
+			
+			
+			
+		
+					
+		  
+		  
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+
+	
+
+</template>

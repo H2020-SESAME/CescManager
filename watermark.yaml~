@@ -1,0 +1,123 @@
+heat_template_version: 2014-10-16
+
+description: Template to a watermark VNF
+
+parameters: #this section is if you want to give the parameters when you are creating the stack
+ image: # choose the image you want to be used
+  type: string
+  label: Image name or ID
+  description: Image to be used for compute instance
+  default: vwater-1-9 #this is the one used if you don't define it
+ flavor: #the flavor used
+  type: string
+  label: flavor
+  description: flavor to be used
+  default: m1.medium
+ int-net: #the public network to be used
+  type: string
+  label: Public network name or ID
+  description: int network
+  default: 53641d17-dd1e-4e56-aa22-a37a3c1e0da8
+ ext-net:
+  type: string
+  label: public-ext-net
+  description: ext-net
+  default: 84727bc7-7ac6-4c0d-ab33-016e67b76e16
+ int-subnet:
+  type: string
+  label: public
+  description: ok
+  default: fa8f6885-08f3-4629-ac5b-adcb7d936f81
+ ext-subnet:
+  type: string
+  label: public
+  description: ok
+  default: 44112331-4626-4a39-8f73-4ff54b24695b
+ ext-net-eth2:
+  type: string
+  label: public
+  description: data net
+  default: 60e11da1-0229-412c-8a9e-ca5a8ae54e7e
+ intsubnet2:
+  type: string
+  label: data net
+  description: ok
+  default: 57042d7d-f62d-42aa-aba2-3ba3a99c2f16
+
+resources: #in this section, the resources are defined
+
+ vwater_boot_script:
+  type: OS::Heat::SoftwareConfig
+  properties:
+   group: ungrouped
+   config:
+    str_replace:
+     template:  |
+
+      #!/bin/bash
+      
+      apt-get -y install openssh-server
+      
+      printf "auto eth1\niface eth0 inet dhcp\n" >> /etc/network/interfaces
+      
+      ifup eth0
+      ifconfig eth1 down
+      ifconfig eth1 192.168.3.5 promisc up
+      flip=`curl http://169.254.169.254/latest/meta-data/public-ipv4`
+      echo -n $flip >/dev/udp/10.143.0.209/33333
+
+      
+      route add -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.3.5 dev eth1
+      arp -s 192.168.1.143 10:fe:ed:08:2d:cc 
+      arp -s 192.168.3.7 00:e0:4c:36:15:28
+      mac=`ifconfig eth1 | grep HWaddr`
+      echo $mac
+      echo -n $mac >/dev/udp/10.143.0.209/33333
+      ffmpeg -re -i udp:192.168.3.5:9999 -i /home/ubuntu/Sesame-logo-220x180.png -filter_complex "overlay=7*((main_w-overlay_w)/8):(main_h-overlay_h)/2" -vcodec mpeg4 -b:v 2048 -f mpegts udp:192.168.3.7:9999?pkt_size=1316
+      
+     
+     params:
+      $val1 : {get_attr: [floating_ip1, floating_ip_address] }
+      val3 : {get_attr: [instance1_server_port_ext, fixed_ips, 0, ip_address]}
+
+
+#-----------------------------------------------------------------
+# instance 1: watermark
+#-----------------------------------------------------------------
+ instance1:
+  type: OS::Nova::Server
+  properties:
+   key_name: def_key
+   image: { get_param: image }
+   name: vwatermark
+   flavor: { get_param: flavor }
+   networks:
+    #- network: { get_param: demo_network }
+    - port: { get_resource: instance1_server_port_ext }
+    - port: { get_resource: instance1_server_port2 }
+   user_data_format: RAW
+   user_data: {get_resource: vwater_boot_script}
+
+
+ 
+ instance1_server_port_ext:
+  type: OS::Neutron::Port
+  properties:
+   network_id: {get_param: int-net}
+   fixed_ips:
+    - subnet_id: {get_param: int-subnet}
+ 
+ floating_ip1:
+    type: OS::Neutron::FloatingIP
+    properties:
+      floating_network: {get_param: ext-net}
+      #fixed_ips: [{"subnet": "ext-subnet", "ip_address": 10.143.0.214}]
+      port_id: { get_resource: instance1_server_port_ext }
+ 
+ 
+ instance1_server_port2:
+      type: OS::Neutron::Port
+      properties:
+          name: "port2"
+          network_id: {get_param: ext-net-eth2}
+          fixed_ips: [{"subnet": "intsubnet2", "ip_address": 192.168.3.5}]

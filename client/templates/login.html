@@ -1,0 +1,53 @@
+<template name="login">
+
+
+
+    <div class="login-box">
+      <div class="login-logo">
+        <a href="#">SESAME <br><b>CESC MANAGER</b></a>
+      </div><!-- /.login-logo -->
+      <div class="login-box-body">
+       
+		   
+		
+        <form id="loginform" method="post">
+		
+		<!--
+		  <div class="form-group has-error">
+
+                      <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> Λάθος στοιχεία</label>
+                      -->
+          <div class="form-group has-feedback">
+            <input type="email" name="email" class="form-control" id="email" placeholder="Email"/>
+            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+          </div>
+          <div class="form-group has-feedback">
+            <input type="password" name="password" class="form-control" id="password" placeholder="Κωδικός"/>
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          </div>
+		  <!--
+		   </div>
+        -->
+			
+          <div class="row">
+            <div class="col-xs-12">    
+                                      
+            
+              <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
+            </div><!-- /.col -->
+          </div>
+        </form>
+
+		  <br>
+
+      <!--
+        <a href="#" id="register">Δεν έχω λογαριασμό</a>
+		-->
+		
+        
+
+      </div><!-- /.login-box-body -->
+    </div><!-- /.login-box -->
+
+    
+  </template>

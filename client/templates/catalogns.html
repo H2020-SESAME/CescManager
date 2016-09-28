@@ -1,0 +1,936 @@
+<template name="catalogns">
+
+
+	  <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Catalog - Network Services
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-folder-open"></i>Catalog</a></li>
+            <li><a href="#">Network Services</a></li>
+
+            
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          
+		  
+		  
+		  <div class="row">
+
+
+      <form id="createns">
+		  <div class="col-md-12">
+
+		  	<div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Create NS</h3>
+            </div>
+            <!-- /.box-header -->
+            	
+            	<div class="box-body">
+
+            		<div class="col-md-4">
+
+            		<div class="form-group">
+                  <label for="nsname">NS Name</label>
+                  <input type="text" class="form-control" id="nsname" placeholder="Enter NS name">
+                </div>
+                <div class="form-group">
+                  <label for="nsdescription">NS Description</label>
+                  <input type="text" class="form-control" id="nsdescription" placeholder="Enter NS short description">
+                </div>
+
+                	<div class="form-group">
+                <label>Select Elements</label>
+
+                <!--
+                <div class="supersidebar" style="border:1px solid yellow; margin-bottom:50px;">
+               	<div class="grid-stack-item"><div class="grid-stack-item-content">vTU</div></div>
+               </div>
+
+               <div>
+            <a class="btn btn-default" id="add-new-widget" href="#">Add Widget</a>
+        </div>
+				-->
+				<br>
+
+				<ul class="node-list">
+                    <li class="node srv-endpoint" style="background-color: green;">
+                        EPC
+                    </li>
+                    <li class="node srv-endpoint" style="background-color: green;">
+                        eNodeB
+                    </li>
+				            <!-- <li class="node srv-endpoint" style="background-color: green;">
+                        Endpoint
+                    </li> -->
+                    <!-- <li class="node srv-vsg">
+                        vSG - Satellite Gateway
+                    </li> -->
+                    <!-- <li class="node srv-vsem">
+                        vSEM - Satellite Emulator
+                    </li> -->
+                    <!-- <li class="node srv-vst">
+                        vST - Satellite Terminal
+                    </li> -->
+                    <li class="node srv-vmt">
+                        vMT - Media Transcoder
+                    </li>
+                    <li class="node srv-vtc">
+                        vTC - Traffic Classifier
+                    </li>
+                    <!-- <li class="node srv-vfw">
+                        vFW - FireWall
+                    </li> -->
+
+                    
+                </ul>
+
+
+
+                <!--
+               <div id="nscreatelist">
+               	<br>
+                  <div class="addnewwidget nscreateitem" id="vnfvtu">vTU</div>
+                  <div class="addnewwidget nscreateitem" id="vnfvtc">vTC</div>
+                  <div class="addnewwidget nscreateitem" id="vnfvfw">vFW</div>
+               </div>
+				-->
+
+
+
+
+
+             	 </div>
+
+
+
+
+               		
+
+            	</div>
+            	<div class="col-md-8" >
+
+
+            		<!--
+            		<div id="nscanvas" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+            		</div>
+					
+
+					{{> gridstack}}
+					-->
+
+
+					<div class="svg-container" style="border:0px solid black; margin-bottom: 15px;">
+
+					</div>
+
+						<script>
+
+
+
+
+$( document ).ready(function() {
+    
+    //
+    // Global variables
+    //
+    var w           = $(window).width();
+        h           = $(window).height();
+        svgWrap     = $('.svg-container');
+        sx          = 5;            // starting point when service thumb is added (305,5)
+        sy          = 5;
+        nodes       = new Array();
+        links       = new Array();
+        id          = 0;
+        translate   = [0,0];
+        scale       = 1;
+
+        nodeBeforeDrag = [0,0];
+
+
+
+
+    //
+    // mouse event vars
+    //
+    var selected_node = null,
+        selected_link = null,
+        mousedown_link = null,
+        mousedown_node = null,
+        mouseup_node = null;
+
+    function resetMouseVars() {
+      mousedown_node = null;
+      mouseup_node = null;
+      mousedown_link = null;
+    }
+        
+
+
+    //
+    // Define zoom behavior
+    //
+    var zoom = d3.behavior.zoom()
+        .scaleExtent([0.35, 0.75])
+        .on("zoom", zoomed);
+
+    function zoomed() {
+      translate = d3.event.translate;
+      scale     = d3.event.scale;
+      //console.log(d3.event.translate);
+      svgWrap.css("background-position",translate[0]+"px "+translate[1]+"px ");
+      nodeGroup.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+      linkGroup.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+      dragGroup.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+    }
+
+
+
+
+    //
+    // Define drag behavior
+    //
+    var drag = d3.behavior.drag()
+        .origin(function(d) { return d; })
+        .on("dragstart", dragstarted)
+        .on("drag", dragged)
+        .on("dragend", dragended);
+
+    function dragstarted(d) {
+      d3.event.sourceEvent.stopPropagation();
+      d3.select(this).classed("dragging", true);
+    }
+    function dragged(d) {
+      //d3.select(this).attr("cx", d.x = d3.event.x).attr("cy", d.y = d3.event.y);
+      d.x = d3.event.x;
+      d.y = d3.event.y;
+      //console.log(d.id + " " + d.x+","+d.y);
+      d3.select(this).attr("transform", "translate(" + d.x + "," + d.y + ")");
+      updateLinksWithNode(d);
+    }
+    function dragended(d) {
+      d3.select(this).classed("dragging", false);
+    }
+
+
+
+
+
+
+
+    // 
+    // as the window resizes, svg takes the size of the window
+    // and remains "full width" & "full height"
+    //
+    $( window ).resize(function() {
+        w = $(window).width();
+        h = $(window).height();
+        //console.log(w+ " "+h);
+        svg.attr("width", w);
+        svg.attr("height", h);
+    });
+
+
+
+    
+
+
+    //
+    // Create SVG element and a group where services will be added
+    //
+    var svg = d3.select(".svg-container")
+                        .append("div")
+   						.classed("svg-container2", true)
+   						.append("svg")
+   						 .attr("id", "finalsvg")
+  						  .attr("preserveAspectRatio", "xMinYMin meet")
+  						 .attr("viewBox", "0 0 600 400")
+ 						  //class to make it responsive
+  						 .classed("svg-content-responsive", true)
+  						 .call(zoom);
+
+
+
+    // line displayed when dragging new nodes
+    var dragGroup   = svg.append('g')
+    //dragGroup.attr("transform", "translate(27.522084045410168,13.422390747070324)scale(0.35)");
+
+
+    var drag_line   = dragGroup.append('path') 
+                        .attr('class', 'link dragline hidden')
+                        .attr('d', 'M0,0L0,0');
+
+
+
+
+    var linkGroup = svg.append("g").attr("class","link-group");
+    var nodeGroup = svg.append("g").attr("class","node-group");
+    //translate(27.522084045410168,13.422390747070324)scale(0.35)
+    //nodeGroup.attr("transform", "translate(27.522084045410168,13.422390747070324)scale(0.35)"); 
+    //linkGroup.attr("transform", "translate(27.522084045410168,13.422390747070324)scale(0.35)");
+
+
+
+
+
+    //
+    // when a service is clicked from the list
+    // add it to the svg area
+    //
+    $('.node-list .node').click(function(){
+
+      var classAttr  = $(this).attr('class');
+      var nodeIconUrl = "";
+      var text        = "";
+          sx          += 5;
+          sy          += 5;
+
+      if ( classAttr.indexOf('vmt') > -1) {
+          nodeIconUrl = "/svg/transcode.png";
+          text        = "vMT"
+      }
+      else if ( classAttr.indexOf('vsg') > -1) {
+          nodeIconUrl = "/svg/vsg.jpg";
+          text        = "vSG"
+      }
+      else if ( classAttr.indexOf('vsem') > -1) {
+          nodeIconUrl = "/svg/vsg.jpg";
+          text        = "vSEM"
+      }
+      else if ( classAttr.indexOf('vst') > -1) {
+          nodeIconUrl = "/svg/vsg.jpg";
+          text        = "vST"
+      }
+      else if ( classAttr.indexOf('vtc') > -1) {
+          nodeIconUrl = "/svg/vtc.jpg";
+          text        = "vTC"
+      }
+      else if ( classAttr.indexOf('vfw') > -1) {
+          nodeIconUrl = "/svg/firewall.png";
+          text        = "vFW"
+      }
+      else if ( classAttr.indexOf('endpoint') > -1) {
+          nodeIconUrl = "/svg/source.png";
+          text        = "Endpoint"
+      }
+      else if ( classAttr.indexOf('destination') > -1) {
+          nodeIconUrl = "/svg/destination.jpg";
+          text        = "Destination"
+      }
+
+
+      node = {
+                id:       "n"+(id++),
+                x:        sx,
+                y:        sy,
+                selected: false,
+                text: text
+              };
+      nodes.push(node);
+      //console.log(nodes);
+
+      var nodeBox = nodeGroup.selectAll("g")
+                  .data(nodes)
+                  .enter()
+                  .append("g")
+                  .attr("id",function(d){
+                     return d.id;
+                  })
+                  .attr("class",classAttr)
+                  .attr("transform", function(d){
+                    return "translate(" + d.x + "," + d.y + ")"})
+                  .call(drag)
+                  .on("mousedown",function(d){
+                    nodeBeforeDrag = [d.x,d.y];
+                  })
+                  .on("mouseup",function(d){
+                    if ((nodeBeforeDrag[0] == d.x) && (nodeBeforeDrag[1]==d.y)) {
+                      //console.log("didn't move");
+                      d.selected = !d.selected;
+                      d3.select(this).select('rect').classed("selected", !d3.select(this).select('rect').classed("selected"));
+                    }
+                    nodeBeforeDrag == [d.x,d.y];
+                  });
+      
+      nodeBox.append("rect")
+          .attr("x",0)
+          .attr("y",0)
+          .attr("rx",30)
+          .attr("width",196)
+          .attr("height",196)
+          .attr("class", "node-wrap");
+
+      nodeBox.append("image")
+          .attr("x", 50)
+          .attr("y", 50)
+          .attr("width",96)
+          .attr("height",96)
+          .attr("xlink:href", nodeIconUrl);
+
+      nodeBox.append("image")
+          .attr("x", 85)
+          .attr("y", 155)
+          .attr("width",26)
+          .attr("height",26)
+          .attr("xlink:href", "/svg/link.svg")
+          // .on("mousedown", function(){
+          //   d3.event.stopPropagation();
+          // })
+          // .on('click', function(d,i){ 
+          //   console.log("link icon clicked!");
+          // });
+          .on('mouseover', function(d) {
+                //console.log("mouse over");
+                if(!mousedown_node || d === mousedown_node) return;
+                // enlarge target node
+                //d3.select(this).attr('transform', 'scale(1.3)');
+              })
+              .on('mouseout', function(d) {
+                //console.log("mouse out");
+                if(!mousedown_node || d === mousedown_node) return;
+                // unenlarge target node
+                d3.select(this).attr('transform', '');
+              })
+              .on('mousedown', function(d) {
+                d3.event.stopPropagation();
+                //console.log("mouse down");
+                if(d3.event.ctrlKey) return;
+
+                // select node
+                mousedown_node = d;
+                if(mousedown_node === selected_node) selected_node = null;
+                else selected_node = mousedown_node;
+                selected_link = null;
+
+                // reposition drag line
+                drag_line
+                  .classed('hidden', false)
+                  .attr('d', 'M' + mousedown_node.x + ',' + mousedown_node.y + 'L' + mousedown_node.x + ',' + mousedown_node.y);
+
+                //restart();
+              })
+              .on('mouseup', function(d) {
+                //console.log("mouse up");
+                //console.log(mousedown_node);
+                if(!mousedown_node) return;
+
+                // needed by FF
+                drag_line
+                  .classed('hidden', true)
+                  .style('marker-end', '');
+
+                // check for drag-to-self
+                mouseup_node = d;
+                if(mouseup_node === mousedown_node) { resetMouseVars(); return; }
+
+                // unenlarge target node
+                //d3.select(this).attr('transform', '');
+
+                // add link to graph (update if exists)
+                // NB: links are strictly source < target; arrows separately specified by booleans
+                var source, target, link;
+                //console.log(mousedown_node.id + " " + mouseup_node.id);
+                  
+                source = mousedown_node;
+                target = mouseup_node;
+
+                link = links.filter(function(l) {
+                  return (l.source === source && l.target === target);
+                })[0];
+
+                if(link) {
+                  //link[direction] = true;
+                } else {
+                  link = {
+                            source:   source,
+                            target:   target,
+                            id:       ('s' + source.id + 't'+target.id),
+                            selected: false
+                          };
+                  //link[direction] = true;
+                  links.push(link);
+                  console.log(links);
+
+                  linkGroup.selectAll('path')
+                            .data(links)
+                            .enter()
+                            .append('path') 
+                            .attr('class', function(d){
+                              return ('link ' + d.id);
+                            })
+                            .attr('d', function(d){
+                              var cx1, cy1, cx2, xy2;
+                              cx1 = d.source.x + 98;
+                              cy1 = d.source.y + 98;
+                              cx2 = d.target.x + 98;
+                              cy2 = d.target.y + 98;
+                              return 'M' + cx1 + ',' + cy1 + 'L' + cx2 + ',' + cy2;
+                            })
+                            .on('mousedown', function(d) {
+                              //d3.event.ctrlKey
+                              //toggle "selected"
+                              d.selected = !d.selected;
+                              d3.select(this).classed("selected", !d3.select(this).classed("selected"));
+                            });
+                }
+              })
+
+
+      nodeBox.append("text")
+          .attr("class","noselect")
+          .attr("x", 100)
+          .attr("y", 35)
+          .style("fill","rgb(146, 146, 146)")
+          .text(text);
+
+      
+
+
+    }); // end of on_click()
+    
+
+
+
+
+
+  function mousemove() {
+    if(!mousedown_node) return;
+    drag_line.attr('d', 'M' + (mousedown_node.x + 98) + ',' + (mousedown_node.y + 98) + 'L' + ((d3.mouse(this)[0] - translate[0])/scale) + ',' + ((d3.mouse(this)[1] - translate[1])/scale));
+  }
+
+  function mouseup() {
+    if(mousedown_node) {
+      // hide drag line
+      drag_line
+        .classed('hidden', true)
+    }
+
+    // because :active only works in WebKit?
+    svg.classed('active', false);
+
+    // clear mouse event vars
+    resetMouseVars();
+  }
+
+
+
+  // only respond once per keydown
+  var lastKeyDown = -1;
+
+  function keydown() {
+    //d3.event.preventDefault();
+
+    if(lastKeyDown !== -1) return;
+    lastKeyDown = d3.event.keyCode;
+
+    //if(!selected_node && !selected_link) return;
+    switch(d3.event.keyCode) {
+      case 46: // delete
+        deleteSelectedLinks();
+        deleteSelectedNodes();
+        break;
+    }
+  }
+
+  function keyup() {
+    lastKeyDown = -1;
+  }
+
+
+
+  svg//.on('mousedown', mousedown)
+    .on('mousemove', mousemove)
+    .on('mouseup', mouseup);
+
+  d3.select(window)
+  .on('keydown', keydown)
+  .on('keyup', keyup);
+
+
+
+
+  //
+  // deletes (if exists any) selected link lines
+  //
+  function deleteSelectedLinks() {
+    i = links.length;
+    while (i--) {
+      if (links[i].selected) {
+        linkGroup.select("."+links[i].id).remove();
+        links.splice(i, 1);
+      }
+    }
+  }
+
+
+  //
+  // deletes link lines from "node"
+  //
+  function deleteLinksFromNode(node) {
+    j = links.length;
+    while (j--) {
+      if ( links[j].source.id == node.id || links[j].target.id == node.id ) {
+        linkGroup.select("."+links[j].id).remove();   // delete from svg
+        links.splice(j, 1);                           // delete from data array
+      }
+    }
+  }
+
+
+  //
+  // deletes (if exists any) selected node and its links
+  //
+  function deleteSelectedNodes() {
+    i = nodes.length;
+    while (i--) {
+      if (nodes[i].selected) {
+        nodeGroup.select("#" + nodes[i].id).remove();
+        deleteLinksFromNode(nodes[i]);
+        nodes.splice(i, 1);
+      }
+    }
+  }
+
+
+
+  //
+  // finds and updates links (x,y) position with "node" as source or target
+  //
+  function updateLinksWithNode(node) {
+    for ( i=0 ; i<links.length ; i++) {
+      if ( links[i].source.id == node.id || links[i].target.id == node.id )  {
+        linkGroup.select("."+links[i].id)
+                  .attr('d', function(){
+                    var cx1, cy1, cx2, xy2;
+                    cx1 = links[i].source.x + 98;
+                    cy1 = links[i].source.y + 98;
+                    cx2 = links[i].target.x + 98;
+                    cy2 = links[i].target.y + 98;
+                    return 'M' + cx1 + ',' + cy1 + 'L' + cx2 + ',' + cy2;
+                  });    
+      }
+    }
+  }
+    
+
+}); // end of   $( document ).ready()
+
+
+/*
+var width = 400,
+    height = 300;
+
+var color = d3.scale.category10();
+
+var nodes = [],
+    links = [];
+
+var force = d3.layout.force()
+    .nodes(nodes)
+    .links(links)
+    .charge(-400)
+    .linkDistance(120)
+    .size([width, height])
+    .on("tick", tick);
+
+var svg = d3.select("#d3yo")
+    .append("div")
+   	.classed("svg-container2", true)
+   	.append("svg")
+    .attr("id", "finalsvg")
+    .attr("preserveAspectRatio", "xMinYMin meet")
+   .attr("viewBox", "0 0 600 400")
+   //class to make it responsive
+   .classed("svg-content-responsive", true);
+
+var node = svg.selectAll(".node"),
+    link = svg.selectAll(".link");
+
+// 1. Add three nodes and three links.
+setTimeout(function() {
+  var a = {id: "a"}, b = {id: "b"}, c = {id: "c"};
+  nodes.push(a, b, c);
+  links.push({source: a, target: b}, {source: a, target: c}, {source: b, target: c});
+  start();
+}, 0);
+
+// 2. Remove node B and associated links.
+setTimeout(function() {
+  nodes.splice(1, 1); // remove b
+  links.shift(); // remove a-b
+  links.pop(); // remove b-c
+  start();
+}, 3000);
+
+// Add node B back.
+setTimeout(function() {
+  var a = nodes[0], b = {id: "b"}, c = nodes[1];
+  nodes.push(b);
+  links.push({source: a, target: b}, {source: b, target: c});
+  start();
+}, 6000);
+
+function start() {
+  link = link.data(force.links(), function(d) { return d.source.id + "-" + d.target.id; });
+  link.enter().insert("line", ".node").attr("class", "link");
+  link.exit().remove();
+
+  node = node.data(force.nodes(), function(d) { return d.id;});
+  node.enter().append("circle").attr("class", function(d) { return "node " + d.id; }).attr("r", 8);
+  node.exit().remove();
+
+  force.start();
+}
+
+function tick() {
+  node.attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; })
+
+  link.attr("x1", function(d) { return d.source.x; })
+      .attr("y1", function(d) { return d.source.y; })
+      .attr("x2", function(d) { return d.target.x; })
+      .attr("y2", function(d) { return d.target.y; });
+}
+*/
+</script>
+
+
+
+
+            	</div>
+            	
+               		<button type="submit" class="btn btn-block btn-primary" id="creatensbutton">Create</button>
+           	 </div>
+        	</div>
+		  </div>
+
+
+<!--
+		  <script>
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    //var cln = elmnt.cloneNode(true);
+    ev.target.appendChild(document.getElementById(data).cloneNode(true));
+}
+</script>
+-->
+
+
+		  <div class="col-md-8">
+		  
+
+
+          
+
+        
+        
+
+
+				
+
+
+
+              </div><!-- /.col -->
+
+
+              </form>	  
+			</div><!-- /.row -->
+			
+			
+			
+		<div class="row">
+		  <div class="col-md-12">
+
+			<div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">NS List</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table class="table table-bordered">
+                <tbody><tr>
+                  <th style="width: 10px">ID</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th style="width: 40px"></th>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Security</td>
+                  <td>Firewalling and Detection all in one.</td>
+                  <td><a href="#"><span class="badge bg-red">X</span></a></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Video Edit</td>
+                  <td>Transcoding and watermarking for video streams</td>
+                  <td><a href="#"><span class="badge bg-red">X</span></a></td>
+                </tr>
+
+
+
+                {{#each nsdata}}
+                     {{> onens}}
+                 {{/each}}
+
+
+
+              </tbody></table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+
+      </div>
+ 	 </div>
+
+					
+		  
+		  
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+      <script>
+  	$(function () {
+    	//Initialize Select2 Elements
+    	$(".select2").select2();
+  	});
+	</script>
+	
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">vTU</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+                  <label for="exampleInputEmail1">Framerate</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="30">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Resolution</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="1024x768">
+                </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Save Configuration</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Source</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+                  <label for="exampleInputEmail1">IP</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="192.168.1.50">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Protocol</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="UDP">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Port</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="5001">
+                </div>
+                
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Save Configuration</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Destination</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+                  <label for="exampleInputEmail1">IP</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="192.168.1.51">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Protocol</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="UDP">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Port</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="5001">
+                </div>
+                
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Save Configuration</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</template>
+
+
+
+
+
+
+<template name="onens">
+  
+              <tr>
+                  <td>{{_id}}</td>
+                  <td>{{nsname}}</td>
+                  <td>{{description}}</td>
+                  <td><a href="#"><span class="badge bg-red">X</span></a></td>
+                </tr>
+                         
+
+
+
+</template>
+
+
+
+
+
+
+
+
+
+

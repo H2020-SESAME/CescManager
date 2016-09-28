@@ -1,0 +1,220 @@
+.map-container {
+  width: 800px;
+  max-width: 100%;
+  height: 500px;
+}
+
+
+.displaynone {
+	display: none;
+}
+.displayblock {
+	display: block;
+}
+
+
+.select2-selection__choice{
+	background-color: #367fa9 !important;
+}
+
+#nscreatelist .nscreateitem{
+	cursor: pointer;
+	-webkit-user-select: none;  
+	-moz-user-select: none;    
+	-ms-user-select: none;      
+	user-select: none;
+	margin-bottom: 5px;
+	text-align: center;
+	width:100%;
+	border:1px solid #367fa9;
+	padding: 5px;
+	font-size:18px;
+	font-weight: strong;
+	background-color: #367fa9;
+	color: white;
+}
+
+
+
+
+
+#nscanvas{
+	border:1px solid #367fa9;
+	width: 100%;
+	min-height: 380px;
+	margin-bottom: 15px;
+	padding-top:10px;
+}
+
+.grid-stack .grid-stack-item-content{
+	cursor: pointer;
+	-webkit-user-select: none;  
+	-moz-user-select: none;    
+	-ms-user-select: none;      
+	user-select: none;
+	overflow: hidden;
+	text-align: center;
+	vertical-align: middle;
+	font-size:12px;
+	height:70px;
+	font-weight: strong;
+	color: white;
+	border:1px solid #367fa9;
+	padding: 10px;
+	z-index:20;
+}
+.nsgriditem{
+	background-color: #367fa9!important;
+}
+
+#nscanvas .nscreateitem{
+	cursor: pointer;
+	-webkit-user-select: none;  
+	-moz-user-select: none;    
+	-ms-user-select: none;      
+	user-select: none;
+	margin-bottom: 25px;
+	text-align: center;
+	vertical-align: middle;
+	width:20%;
+	height: 60px;
+	font-size:18px;
+	font-weight: strong;
+	background-color: #367fa9;
+	color: white;
+	border:1px solid #367fa9;
+	padding: 15px;
+}
+
+
+.sidebar .sidebar-menu .active .treeview-menu {
+    display: block;
+}
+
+
+ .supersidebar {
+            background: rgba(0, 255, 0, 0.1);
+            height: 200px;
+            padding: 25px 0;
+            text-align: center;
+        }
+
+        .supersidebar .grid-stack-item {
+            width: 100px;
+            height: 50px;
+            border: 2px dashed green;
+            text-align: center;
+			vertical-align: middle;
+            z-index: 10;
+            background: rgba(0, 255, 0, 0.1);
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .supersidebar .grid-stack-item .grid-stack-item-content {
+            background: none;
+        }
+
+		
+#nssource{
+	background-color: green;
+}
+#nsdestination{
+	background-color: red;
+}
+
+
+
+
+.link {
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+.node {
+  fill: #000;
+  stroke: #fff;
+  stroke-width: 2.5px;
+}
+
+.node.a { fill: #1f77b4; }
+.node.b { fill: #ff7f0e; }
+.node.c { fill: #2ca02c; }
+
+#finalsvg{
+	
+}
+.svg-container2 {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 70%; /* aspect ratio */
+    vertical-align: top;
+    overflow: hidden;
+	background: url('/svg/pattern_tile.png') 0px 0px; 
+	
+}
+.svg-content-responsive {
+	background: url('/svg/pattern_tile.png') 0px 0px; 
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    left: 0;
+}
+
+
+
+
+
+
+.svg-container {background: url('/svg/pattern_tile.png') 0px 0px; }
+.svg-container .node            { cursor: pointer; }
+.svg-container .node:hover .srv-wrap { stroke: #85A9C5; stroke-width: 4px; }
+.svg-container .node-wrap       { fill: #fff; stroke: #ccc; stroke-width: 4px; /*transition: all .2s;*/ }
+.svg-container .node-wrap.selected { stroke-dasharray: 10,5; stroke: #85A9C5; }
+.svg-container .node-group text { text-anchor: middle; font-size: 20px; font-family: sans-serif; stroke: none;}
+.svg-container path.link { fill: none; stroke: #85A9C5; stroke-width: 4px; cursor: pointer; }
+.svg-container path.link.selected { stroke-dasharray: 10,5; }
+.svg-container path.link.dragline { pointer-events: none; }
+
+
+
+
+
+
+
+/*helpers*/
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.hidden { display: none; }
+
+
+
+.node-list{
+	padding: 0;
+    list-style-type: none;
+}
+.node-list li{
+	cursor: pointer;
+	-webkit-user-select: none;  
+	-moz-user-select: none;    
+	-ms-user-select: none;      
+	user-select: none;
+	margin-bottom: 5px;
+	text-align: center;
+	width:100%;
+	border:1px solid #367fa9;
+	padding: 5px;
+	font-size:18px;
+	font-weight: strong;
+	background-color: #367fa9;
+	color: white;
+}
