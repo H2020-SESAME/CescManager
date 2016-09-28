@@ -41,8 +41,8 @@ def findPort(mac):
 # Create a TCP/IP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-# Bind the socket to the port
-server_address = ('10.143.0.209', 33333)
+# Bind the socket to the port,
+server_address = ('0.0.0.0', 33333)
 print >>sys.stderr, 'starting up on %s port %s' % server_address
 sock.bind(server_address)
 i=0
@@ -68,37 +68,7 @@ while True:
             j=j+1
             if (vnf!='spawn'):
                 print vnf
-                if (vnf=='vFW'):
-                    print "nova boot --image firewall --flavor m1.small --nic net-id=dc160fbe-2cd5-41c6-8d44-c1b0f962f66b "+datas[j+1]
-                    #os.system("nova boot --image firewall --flavor m1.small --nic net-id=dc160fbe-2cd5-41c6-8d44-c1b0f962f66b vfw"+str(i))
-                elif (vnf=='vSG'):
-                    print "nova boot vSG"
-                    os.system("nova boot --image satgw4 --flavor m1.small --nic port-id=dd3d57c6-2175-448f-afea-578f0aede160 --nic port-id=0044ce1d-9d68-4ed1-8e9e-eadaf37e1fe4 "+datas[j+1])
-                    time.sleep(6)
-                    helper = os.popen("nova show "+datas[j+1]+" | grep vital2-net").read()
-                    #print helper
-                    theone = ""
-                    helperarray = helper.split(" ")
-                    for helperitem in helperarray:
-                        if "." in helperitem:
-                            theone = helperitem
-                    helper2 = os.popen("neutron port-list | grep "+theone).read()
-                    #print "H ip einai->"+theone
-                    helperarray2 = helper2.split(" ")
-                    theone2 = ""
-                    #print helperarray2
-                    for helperitem2 in helperarray2:
-                        if "fa:16:3e" in helperitem2:
-                            theone2 = helperitem2
-
-
-                    ovsport = findPort(theone2)
-                    print ovsport
-                    #print "source:"+source
-                    #print "destination:"+destination
-                    os.system("ovs-ofctl add-flow br-ex priority=99,dl_type=0x800,in_port=1,nw_src="+source+",nw_dst="+destination+",actions=output:3")
-                    os.system("ovs-ofctl add-flow br-int priority=108,dl_type=0x800,in_port=5,nw_src="+source+",nw_dst="+destination+",actions=mod_dl_dst:fa:16:3e:68:fc:99,mod_nw_dst:192.168.8.4,mod_dl_src:fa:16:3e:30:e0:e6,mod_nw_src:192.168.7.36,output:"+ovsport)
-                elif (vnf=='vMT'):
+                if (vnf=='vMT'):
                     yamlfl = str('watermark.yaml')
 	            with open(yamlfl, 'r') as stream:
 		         try:
@@ -108,7 +78,7 @@ while True:
 		         except yaml.YAMLError as exc:
 			     print(exc)
 
-                    cip = '10.143.0.209'
+                    cip = '10.143.0.209' #this is the IP of the VIM/Openstack
                     username = 'admin'
                     password = 'ii70mseq'
                     tenant = 'admin'
