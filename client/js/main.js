@@ -286,7 +286,7 @@ Template.catalogns.events({
         e.preventDefault();
 
 
-        console.log("TESTTTT2222");
+        console.log("TEST2");
     },
     'click .addnewwidget': function (e) {
         e.preventDefault();
@@ -297,7 +297,7 @@ Template.catalogns.events({
         var node = {x: 0, y: 0, width: 2, height: 1};
         mygrid.add_widget($('<div class="grid-stack-item" data-gs-no-resize="true" data-gs-locked="true" id="'+e.target.innerHTML+'"><div class="grid-stack-item-content nsgriditem" id="'+e.target.innerHTML+'">'+e.target.innerHTML+'</div></div>'),node.x, node.y, node.width, node.height);
         
-        console.log("TESTTTT");
+        console.log("TEST");
     }
 });
 

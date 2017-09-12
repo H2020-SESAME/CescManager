@@ -4,17 +4,7 @@ Meteor.subscribe("deployednetworkservices");
 
 
 Template.operationalns.helpers({
-	/*
-    emptyBoats: function () {
-    	var numberOfBoats = Boats.find({ userid: Meteor.userId() }).count();
-    	if (numberOfBoats == 0){
-        	return true;
-        }else{
-        	return false;
-        }
-    
-    },
-    */
+	
     nsdata: function () {
      
         return NetworkServices.find();
@@ -44,13 +34,12 @@ Template.donensop.helpers({
             }else if (this.started==2){
 				returnstring = "Loading";
 			}
-            //console.log(returnstring);
+            console.log(returnstring);
             return returnstring;
         },
         startstop: function () {
             var returnstring = "";
 
-        
             if (this.started==0){
                 returnstring = "START";
             }else if (this.started==1){
@@ -103,13 +92,13 @@ Template.donensop.events({
             Meteor.call("sendUDP", "start", 1)
 
 
-            //alert("Deployed NS started");
+            alert("Deployed NS started");
 
         }else if (objecto2[0]["started"]==1){
             Meteor.call("deployedState", objecto2[0]["_id"], 0);
 
-            var str2 = "ovs-ofctl --strict del-flows archidamus priority=77,dl_type=0x800,in_port=8,nw_src="+source+",nw_dst="+destination+"/ovs-ofctl --strict del-flows archidamus priority=77,dl_type=0x0800,nw_src="+source+",nw_dst="+destination+",in_port=4";
-            Meteor.call("sendUDP", "stop", 1)
+            //var str2 = "ovs-ofctl --strict del-flows archidamus priority=77,dl_type=0x800,in_port=8,nw_src="+source+",nw_dst="+destination+"/ovs-ofctl --strict del-flows archidamus priority=77,dl_type=0x0800,nw_src="+source+",nw_dst="+destination+",in_port=4";
+            //Meteor.call("sendUDP", "stop", 1)
 
             //alert("Deployed NS stopped");
 
@@ -132,8 +121,8 @@ Template.donensop.events({
         var source = help[1];
         var destination = help[0];
 
-        var wtf2 = "ovs-ofctl --strict del-flows archidamus priority=77,dl_type=0x800,in_port=8,nw_src="+source+",nw_dst="+destination+"/ovs-ofctl --strict del-flows archidamus priority=77,dl_type=0x0800,nw_src="+source+",nw_dst="+destination+",in_port=4";
-        Meteor.call("sendUDP", wtf2, 3)
+        var param = "param";
+        //Meteor.call("sendUDP", param, 3)
 
 
         myId = dnsid;
@@ -142,9 +131,8 @@ Template.donensop.events({
 
                 
 
-        var wtf5 = "delete:"+source+":"+destination+":"+dnsid+"-0:"+dnsid+"-1:"+dnsid+"-2";
+       
         Meteor.call("tenorCallDel", myId);
-		Meteor.call("sendUDP", wtf5, 1);
 
         Meteor.call("removeDeployed", objecto2[0]["_id"]);
         alert("Deployed Network Service removed.");
@@ -204,6 +192,7 @@ Template.onensop.events({
         Session.set("nsid", $(e.currentTarget).attr("nsid"));
         var objecto2 = NetworkServices.find({_id: nsid}).fetch();
         console.log(objecto2);
+		this.started=0;
         if (objecto2[0]){
             console.log(objecto2[0]["nsname"]);
             console.log("Nodes length: " + objecto2[0]["nodes"].length);
@@ -255,11 +244,11 @@ Template.modaltemplate.helpers({
             var whatreturn = "";
 
 
-            console.log("eee moglizz-> "+Session.get("currentstepname"));
+            console.log("-> "+Session.get("currentstepname"));
             if (Session.get("currentstepname") == "Endpoint"){
                 
                 whatreturn= "<div class=\"form-group\"><label for=\"exampleInputEmail1\">IP</label><input type=\"text\" class=\"form-control\" id=\"endip\" placeholder=\"192.168.1.50\"></div><div class=\"form-group\"><label for=\"exampleInputEmail1\">Protocol</label><input type=\"text\" class=\"form-control\" id=\"exampleInputEmail1\" placeholder=\"UDP\"></div><div class=\"form-group\"><label for=\"exampleInputEmail1\">Port</label><input type=\"text\" class=\"form-control\" id=\"exampleInputEmail1\" placeholder=\"5001\"></div>";
-            }else if (Session.get("currentstepname") == "vSG" || Session.get("currentstepname") == "vSEM" || Session.get("currentstepname") == "vST"){
+            }else if (Session.get("currentstepname") == "vDPI" || Session.get("currentstepname") == "vSEM" || Session.get("currentstepname") == "vST"){
                 whatreturn= "<div class=\"form-group\"><label>NFVI PoP</label><select id=\"pop\" class=\"form-control\"><option value=\"1\">nfvipop1</option><option value=\"2\">nfvipop2</option></select></div>";
             }else if (Session.get("currentstepname") == "vMT"){
                 whatreturn= "<div class=\"form-group\"><label>NFVI PoP</label><select id=\"pop\" class=\"form-control\"><option value=\"1\">nfvipop1</option><option value=\"2\">nfvipop2</option></select></div><div class=\"form-group\"><label for=\"exampleInputEmail1\">Bitrate (bps)</label><input type=\"text\" class=\"form-control\" id=\"exampleInputEmail1\" placeholder=\"512\"></div><div class=\"form-group\"><label for=\"exampleInputEmail1\">Resolution</label><input type=\"text\" class=\"form-control\" id=\"exampleInputEmail1\" placeholder=\"800x600\"></div>";
@@ -411,7 +400,11 @@ Template.modaltemplate.events({
 
             
             var theId;
-            Meteor.call("addDeployed", objecto2[0]["_id"], objecto2[0]["nsname"], nsconfhelper, function(error,result){
+			// The network service is created in MongoDB and the tenor values,
+			// which are the last 2 (tenornsid, vnfid) , are inserted by default
+			// Then they will get updated when the network service is created in tenor
+			
+            Meteor.call("addDeployed", objecto2[0]["_id"], objecto2[0]["nsname"], nsconfhelper, "0", "0", function(error,result){
                 theId = result;
                 console.log("TO ID EINAI::::::"+result);
 
@@ -429,9 +422,15 @@ Template.modaltemplate.events({
                     packets2[i] = packets2[i].substring(0, packets2[i].length - 1);
                     //console.log(packets[i]);
                     var wtf = "spawn:"+nsconfhelper+":"+packets2[i];
-                    Meteor.call("tenorCallAdd", theId);
-					Meteor.call("sendUDP", wtf, i);
-                    console.log("last stand");
+                    
+					var nsid;
+					
+					Meteor.call("tenorCallAdd", theId);
+					
+					Meteor.call("deployedState", result, 0);
+					//console.log("The vnfID ::::::"+vnfid);
+					
+					//Meteor.call("sendUDP", wtf, i);
                     console.log(wtf+"@POP"+i);
                 }
 
@@ -439,9 +438,9 @@ Template.modaltemplate.events({
                 $('#myModal'+Session.get("nsid")).modal('hide');
                 $('#myModalSuccess').modal('show');
 
-
-
             });
+			
+			
 
             
             

@@ -14,7 +14,7 @@ Template.tenor.onRendered(function () {
         		if (height < 1) height = 1;
         		if (height > topOffset) {
 			   height = height - 100;
-         		   $("#tenoras").css("min-height", (height) + "px");
+         		   $("#tenor").css("min-height", (height) + "px");
          		   //$("#page-wrapper iframe").css("min-height", (height) + "px");
         		}
     		});

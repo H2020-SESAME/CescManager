@@ -36,85 +36,136 @@
             	<div class="box-body">
 
             		<div class="col-md-4">
+						
+						
+						<!-- fetch value with jQuery: $('.form-group-ops input:checked').val() -->
+						<div class="form-group form-group-ops">
+							<label>Operator</label><br>
+							<ul>
+								<li>
+									<label for="op-1">
+										<input type="radio" name="op-group" id="op-1" value="operator-1" />
+										<img src="/images/op1_btn.jpg">
+									</label> 
+								</li>
+								<li>
+									<label for="op-2">
+										<input type="radio" name="op-group" id="op-2" value="operator-2" />
+										<img src="/images/op2_btn.jpg">
+									</label> 
+								</li>
+								<li>
+									<label for="op-3">
+										<input type="radio" name="op-group" id="op-3" value="operator-3" />
+										<img src="/images/op3_btn.jpg">
+									</label> 
+								</li>
+							</ul>
+							
+						
 
-            		<div class="form-group">
-                  <label for="nsname">NS Name</label>
-                  <input type="text" class="form-control" id="nsname" placeholder="Enter NS name">
-                </div>
-                <div class="form-group">
-                  <label for="nsdescription">NS Description</label>
-                  <input type="text" class="form-control" id="nsdescription" placeholder="Enter NS short description">
-                </div>
+						</div>
+						
+						<div class="form-group">
+						  <label for="nsname">NS Name</label>
+						  <input type="text" class="form-control" id="nsname" placeholder="Enter NS name">
+						</div>
+						
+						<div class="form-group">
+						  <label for="nsdescription">NS Description</label>
+						  <input type="text" class="form-control" id="nsdescription" placeholder="Enter NS short description">
+						</div>
 
-                	<div class="form-group">
-                <label>Select Elements</label>
+						<div class="form-group">
+							<label>Select Elements</label>
 
-                <!--
-                <div class="supersidebar" style="border:1px solid yellow; margin-bottom:50px;">
-               	<div class="grid-stack-item"><div class="grid-stack-item-content">vTU</div></div>
-               </div>
+								<!--
+								<div class="supersidebar" style="border:1px solid yellow; margin-bottom:50px;">
+								<div class="grid-stack-item"><div class="grid-stack-item-content">vTU</div></div>
+							   </div>
 
-               <div>
-            <a class="btn btn-default" id="add-new-widget" href="#">Add Widget</a>
-        </div>
-				-->
-				<br>
+							   <div>
+							<a class="btn btn-default" id="add-new-widget" href="#">Add Widget</a>
+						</div>
+								-->
+							<br>
 
-				<ul class="node-list">
-                    <li class="node srv-endpoint" style="background-color: green;">
-                        EPC
-                    </li>
-                    <li class="node srv-endpoint" style="background-color: green;">
-                        eNodeB
-                    </li>
-				            <!-- <li class="node srv-endpoint" style="background-color: green;">
-                        Endpoint
-                    </li> -->
-                    <!-- <li class="node srv-vsg">
-                        vSG - Satellite Gateway
-                    </li> -->
-                    <!-- <li class="node srv-vsem">
-                        vSEM - Satellite Emulator
-                    </li> -->
-                    <!-- <li class="node srv-vst">
-                        vST - Satellite Terminal
-                    </li> -->
-                    <li class="node srv-vmt">
-                        vMT - Media Transcoder
-                    </li>
-                    <li class="node srv-vtc">
-                        vTC - Traffic Classifier
-                    </li>
-                    <!-- <li class="node srv-vfw">
-                        vFW - FireWall
-                    </li> -->
+							<ul class="node-list">
+								<li class="node srv-endpoint" style="background-color: green;">
+									EPC
+								</li>
+								<li class="node srv-endpoint" style="background-color: green;">
+									eNodeB
+								</li>
+										<!-- <li class="node srv-endpoint" style="background-color: green;">
+									Endpoint
+								</li> -->
+								<!-- <li class="node srv-vsg">
+									vSG - Satellite Gateway
+								</li> -->
+								<!-- <li class="node srv-vsem">
+									vSEM - Satellite Emulator
+								</li> -->
+								<li class="node srv-vst">
+									vOT - Object Tracking
+								</li>
+								<li class="node srv-vmt">
+									vWatermark - Video Watermark
+								</li>
+								<li class="node srv-vtc">
+									vDPI - Deep Packet Inspection
+								</li>
+								<li class="node srv-vfw">
+									vFW - FireWall
+								</li>
+							</ul>
+							<label for="slaname">SLAs</label>
+							<br>
+							
+							<!-- https://codepen.io/bigglesrocks/pen/EKBxQb -->
+							<!-- fetch value with jQuery: $('.hero-select .selected > input').val() -->
+							<div class="hero-select">
+								<ul class="levels">
+								  <li class="level bronze" data-level="bronze" data-commitment="500">
+									<input type="radio" name="hero-level" value="bronze">
+									<div class="content">
+									  <h6>Bronze</h6>
+									  <!-- <p><span class="cost">$500</span></p> -->
+									</div>
+								  </li>
+								  <li class="level silver" data-level="silver" data-commitment="1000">
+									<input type="radio" name="hero-level" value="silver">
+									<div class="content">
+									  <h6>Silver</h6>
+									  <!-- <p><span class="cost">$1,000</span></p> -->
+									</div>
+								  </li>
+								  <li class="level gold" data-level="gold" data-commitment="3000">
+									<input type="radio" name="hero-level" value="gold">
+									<div class="content">
+									  <h6>Gold</h6>
+									  <!-- <p><span class="cost">$3,000</span></p> -->
+									</div>
+								  </li>
+								</ul>
+							</div>
+							
+							
+							
+							
 
-                    
-                </ul>
+							<!--
+						   <div id="nscreatelist">
+							<br>
+							  <div class="addnewwidget nscreateitem" id="vnfvtu">vTU</div>
+							  <div class="addnewwidget nscreateitem" id="vnfvtc">vTC</div>
+							  <div class="addnewwidget nscreateitem" id="vnfvfw">vFW</div>
+						   </div>
+							-->
 
-
-
-                <!--
-               <div id="nscreatelist">
-               	<br>
-                  <div class="addnewwidget nscreateitem" id="vnfvtu">vTU</div>
-                  <div class="addnewwidget nscreateitem" id="vnfvtc">vTC</div>
-                  <div class="addnewwidget nscreateitem" id="vnfvfw">vFW</div>
-               </div>
-				-->
-
-
-
-
-
-             	 </div>
-
-
-
-
-               		
-
-            	</div>
+						</div>
+					</div>
+					
             	<div class="col-md-8" >
 
 
@@ -311,7 +362,7 @@ $( document ).ready(function() {
       }
       else if ( classAttr.indexOf('vtc') > -1) {
           nodeIconUrl = "/svg/vtc.jpg";
-          text        = "vTC"
+          text        = "vDPI"
       }
       else if ( classAttr.indexOf('vfw') > -1) {
           nodeIconUrl = "/svg/firewall.png";
@@ -619,6 +670,29 @@ $( document ).ready(function() {
       }
     }
   }
+  
+  
+  
+  $('.hero-select .level .content').click(function() {
+		$('.hero-select .level').removeClass('selected');
+		$(this).parents('.level').addClass('selected').find('input').prop('checked', true);
+		$(this).parents('.hero-select').siblings('.start-donation').addClass('show');
+		localStorage.setItem('rnr-sj-hero-level', $(this).data('level'));
+		localStorage.setItem('rnr-sj-hero', "true");
+		localStorage.setItem('rnr-sj-hero-commitment', $(this).data('commitment'));
+	});
+
+	$('.hero-select .level').hover(function() {
+		$('.hero-select .level').removeClass('hovered');
+		$(this).addClass('hovered');
+		var details = $('.hero-select .level-detail.'+$(this).data('level'));
+		$('.hero-select .level-detail').hide();
+		details.show();
+		$('.hero-select .level-details').addClass('expanded');
+	}, function() {
+		// $(this).removeClass('hovered');
+	});
+	
     
 
 }); // end of   $( document ).ready()
@@ -907,7 +981,14 @@ function drop(ev) {
 </template>
 
 
+<template name="slaop">
+  
+  
+			<option value="{{slaname}}">{{slaname}}</option>
+  
+                         
 
+</template>
 
 
 
@@ -917,7 +998,7 @@ function drop(ev) {
                   <td>{{_id}}</td>
                   <td>{{nsname}}</td>
                   <td>{{description}}</td>
-                  <td><a href="#"><span class="badge bg-red">X</span></a></td>
+                  <td><a id="delete" dnsid="{{_id}}" href="#"><span class="badge bg-red">X</span></a></td>
                 </tr>
                          
 

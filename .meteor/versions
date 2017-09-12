@@ -66,6 +66,8 @@ npm-bcrypt@0.9.1
 npm-mongo@1.5.49
 observe-sequence@1.0.12
 ordered-dict@1.0.8
+peerlibrary:blocking@0.5.2
+peerlibrary:xml2js@0.4.8_1
 promise@0.8.4
 random@1.0.10
 rate-limit@1.0.5
@@ -79,6 +81,8 @@ service-configuration@1.0.10
 session@1.0.5
 sha@1.0.8
 shell-server@0.2.1
+simple:json-routes@2.1.0
+simple:rest@1.1.1
 spacebars@1.0.12
 spacebars-compiler@1.0.12
 spiderable@1.0.13

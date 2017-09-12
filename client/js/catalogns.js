@@ -1,23 +1,18 @@
 Meteor.subscribe("networkservices");
-
+Meteor.subscribe("slas");
 
 Template.catalogns.helpers({
-	/*
-    emptyBoats: function () {
-    	var numberOfBoats = Boats.find({ userid: Meteor.userId() }).count();
-    	if (numberOfBoats == 0){
-        	return true;
-        }else{
-        	return false;
-        }
-    
-    },
-    */
+	
     nsdata: function () {
      
         return NetworkServices.find();
       
-    }
+    },
+	sladata: function() {
+		var result;
+		
+	 
+	}
 
 
 
@@ -54,9 +49,21 @@ Template.catalogns.events({
 
         	}
 
-
+			operator = $('.form-group-ops input:checked').val();
+			alert(operator);
+			sla = $('.hero-select .selected > input').val();
+			alert(sla);
+			
+			Meteor.call('atosCall',operator, sla, nsname, function(error, results) {
+				 //results.data should be a JSON object
+				//alert(results);
+				console.log(results);
+				result = results;
+			});
+			
         	Meteor.call("addNode", nsname, nsdescription, a, b);
-
+			
+			
         	alert("NS Created!");
 
     	}else{
@@ -64,6 +71,21 @@ Template.catalogns.events({
     		alert("Empty Fields");
 
     	}
+
+    },
+	
+	'click #delete': function (e) {
+        e.preventDefault();
+        //console.log($(e.currentTarget).attr("nsid"));
+        var dnsid = $(e.currentTarget).attr("dnsid");
+        Session.set("dnsid", $(e.currentTarget).attr("dnsid"));
+        var objecto2 = NetworkServices.find({_id: dnsid}).fetch();
+        console.log(objecto2);
+
+        
+        Meteor.call("removeCatalogueNS", objecto2[0]["_id"]);
+        alert("Network Service removed.");
+       
 
     }
 });

@@ -218,3 +218,143 @@
 	background-color: #367fa9;
 	color: white;
 }
+
+
+/* Operators select */
+.form-group-ops {}
+.form-group-ops ul {list-style:none; padding: 0; margin: 0; font-size: 0; }
+.form-group-ops ul li {display:inline-block; max-width:33.33%;}
+.form-group-ops ul li label { padding-left: 20px; position: relative; margin: 5px;}
+.form-group-ops input {display: inline-block; position: absolute; top: 10px; left: 5px;}
+.form-group-ops label img {max-width: calc(100% - 20px);}
+
+/* Gold - Silver - Bronze select */
+
+.hero-select {
+  clear: both;
+  margin: 0 auto;
+  width: 95%;
+  font-size: 16px;
+  font-family: 'Rubik', sans-serif;
+}
+.hero-select .help-text {
+  font-size: 0.9em;
+  color: #999999;
+  margin-bottom: 0.6em;
+}
+.hero-select .levels {
+  display: inline-block;
+  width: 100%;
+  padding: 0;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  list-style: none;
+}
+.hero-select .level {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  padding-bottom: 0;
+  /* min-width: 185px; */
+  width: 33%;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+  position: relative;
+}
+.hero-select .level input {
+  display: none;
+}
+.hero-select .level:hover {
+  cursor: pointer;
+  -webkit-transform-origin: top center;
+          transform-origin: top center;
+}
+.hero-select .level .content {
+  list-style-type: none;
+  padding: 1.5em 1em 1.5em 0.5em;
+  display: block;
+  border: 1px solid #e6e6e6;
+  font-size: 1em;
+  overflow: hidden;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+  -webkit-transform-origin: bottom center;
+          transform-origin: bottom center;
+  background-color: #fff;
+  position: relative;
+  min-height: auto;
+}
+.hero-select .level .content .cost {
+  font-size: 1.5em;
+  display: block;
+}
+.hero-select .level .content p {
+  z-index: 2;
+  position: relative;
+  margin-left: 1.8rem;
+  margin-top: 0.2em;
+  display: block;
+}
+.hero-select .level .content h6 {
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  margin: 0;
+  z-index: 0;
+  position: relative;
+}
+.hero-select .level .content h6:before {
+  background-color: #b3b3b3;
+  border-radius: 50%;
+  width: 0.9em;
+  height: 0.9em;
+  top: 0.075em;
+  content: '';
+  display: inline-block;
+  margin-right: 0.2em;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+  z-index: -1;
+  position: relative;
+}
+.hero-select .level.platinum h6:before {
+  background: -webkit-linear-gradient(315deg, #f2edf1 0%, #dae8e3 50%, #c7d2e2 51%, #e1f5f7 100%);
+  background: linear-gradient(135deg, #f2edf1 0%, #dae8e3 50%, #c7d2e2 51%, #e1f5f7 100%);
+}
+.hero-select .level.gold h6:before {
+  background: -webkit-linear-gradient(315deg, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%);
+  background: linear-gradient(135deg, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%);
+}
+.hero-select .level.silver h6:before {
+  background: -webkit-linear-gradient(315deg, #e6e6e6 0%, #d9d9d9 50%, #cbcbcb 51%, #dddddd 100%);
+  background: linear-gradient(135deg, #e6e6e6 0%, #d9d9d9 50%, #cbcbcb 51%, #dddddd 100%);
+}
+.hero-select .level.bronze h6:before {
+  background: -webkit-linear-gradient(315deg, #f3e2c7 0%, #c19e67 50%, #b68d4c 51%, #e9d4b3 100%);
+  background: linear-gradient(135deg, #f3e2c7 0%, #c19e67 50%, #b68d4c 51%, #e9d4b3 100%);
+}
+.hero-select .level.selected h6:before {
+  -webkit-transform: scale(25, 25);
+          transform: scale(25, 25);
+}
+.hero-select .level.selected h6, .hero-select .level.selected p {
+  color: #fff;
+}
+.hero-select .level.selected.bronze:after {
+  border-top-color: #C5A26B;
+}
+.hero-select .level.selected.silver:after {
+  border-top-color: #D1D1D1;
+}
+.hero-select .level.selected.gold:after {
+  border-top-color: #F9C129;
+}
+.hero-select .level.selected.platinum:after {
+  border-top-color: #D1E0EA;
+}
+

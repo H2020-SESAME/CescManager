@@ -15,9 +15,27 @@ Meteor.publish("deployednetworkservices", function(){
 });
 
 
+Meteor.publish("slas", function(){ 
+    
+    return SLAs.find();
+
+});
+
 Meteor.publish("networkservice", function(){ 
 
     return NetworkServices.find({ userid: this.userId });
+
+});
+
+Meteor.publish("alerts", function(){ 
+    
+    return Alerts.find();
+
+});
+
+Meteor.publish("violations", function(){ 
+
+    return Violations.find();
 
 });
 

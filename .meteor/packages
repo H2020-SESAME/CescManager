@@ -31,3 +31,5 @@ tarzak:gridstackjs
 spiderable
 gadicohen:phantomjs
 session
+peerlibrary:xml2js
+simple:rest
