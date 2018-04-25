@@ -30,47 +30,58 @@ Template.sidebar.events({
     'click #dashboard': function (e) {
         e.preventDefault();
         Router.go('/dashboard');
-        document.location.reload(true);
+        //document.location.reload(true);
     },
     'click #tenor': function (e) {
         e.preventDefault();
         Router.go('/tenor');
-        document.location.reload(true);
+        //document.location.reload(true);
+    },
+	'click #qos': function (e) {
+        e.preventDefault();
+        Router.go('/qos');
+        //document.location.reload(true);
+    },
+	'click #catalog': function (e) {
+        e.preventDefault();
+		
+		$("#treecatns").removeClass();
+		$("#treecatns").addClass("treeview-menu menu-open");
     },
     'click #catalogns': function (e) {
         e.preventDefault();
         Router.go('/catalogns');
-        document.location.reload(true);
+        //document.location.reload(true);
     },
     'click #catalogvnf': function (e) {
         e.preventDefault();
         Router.go('/catalogvnf');
-        document.location.reload(true);
+        //document.location.reload(true);
     },
     'click #operationalns': function (e) {
         e.preventDefault();
         Router.go('/operationalns');
-        document.location.reload(true);
+        //document.location.reload(true);
     },
     'click #monitoringns': function (e) {
         e.preventDefault();
         Router.go('/monitoringns');
-        document.location.reload(true);
+        //document.location.reload(true);
     },
     'click #monitoringvnf': function (e) {
         e.preventDefault();
         Router.go('/monitoringvnf');
-        document.location.reload(true);
+        //document.location.reload(true);
     },
     'click #monitoringcompute': function (e) {
         e.preventDefault();
         Router.go('/monitoringcompute');
-        document.location.reload(true);
+        //document.location.reload(true);
     },
     'click #monitoringnetwork': function (e) {
         e.preventDefault();
         Router.go('/monitoringnetwork');
-        document.location.reload(true);
+        //document.location.reload(true);
     }
 });
 
@@ -101,25 +112,11 @@ Template.navbar.events({
 
 
 Template.navbar.helpers({
-    loggedUser: function () {
+    /*loggedUser: function () {
       console.log(Meteor.user());
       return Meteor.user().emails[0].address;
   
-    }
-
-  });
-
-
-
-
-
-  Template.basic.events({
-    'click #imei1': function () {
-        alert("yo");
-    },
-    'click #imei2': function () {
-        alert("yo2");
-    }
+    }*/
 
   });
 
@@ -129,34 +126,7 @@ Template.navbar.helpers({
 
 
 
-Template.monitoringcompute.events({
-    'click #satpop': function (e) {
-        e.preventDefault();
-        Session.set("monpop", "satpop");
-       
-        
-    },
-    'click #edgepop': function (e) {
-        e.preventDefault();
-        Session.set("monpop", "edgepop");
-        
-    }  
-});
 
-
-Template.monitoringcompute.helpers({
-    resources: function () {
-      if (Session.get("monpop") == "satpop"){
-        return "Satellite PoP";
-      }else if (Session.get("monpop") == "edgepop"){
-        return "Edge PoP";
-      }else{
-        return "Total";
-      }
-  
-    }
-
-  });
 
 
 
@@ -167,23 +137,8 @@ Template.monitoringcompute.helpers({
 
 var prevclick="";
 
-Template.gridstack.rendered = function () {
+/*Template.gridstack.rendered = function () {
  var gridstackOptions = {};
-
-
- /*
- Tracker.autorun(function () {
-  var grid = $('.grid-stack').gridstack(gridstackOptions).data('gridstack');
-  grid.remove_all();
-  _.each(gridTiles, function (tile) {
-   var widgetElement = $('<div><div class="grid-stack-item-content" /><div/>')
-   if(widgetElement)    {
-    grid.add_widget(widgetElement, tile.x, tile.y, tile.width, tile.height);
-    widgetElement.attr('data-custom-id', tile._id);
-   }
-  });
- }); // End autorun
-  */
 
 
 
@@ -277,7 +232,7 @@ Template.gridstack.rendered = function () {
   });
  });
 };      
-
+*/
 
 
 

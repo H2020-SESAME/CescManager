@@ -91,10 +91,10 @@
 							<br>
 
 							<ul class="node-list">
-								<li class="node srv-endpoint" style="background-color: green;">
+								<li class="node srv-endpointEPC" style="background-color: green;">
 									EPC
 								</li>
-								<li class="node srv-endpoint" style="background-color: green;">
+								<li class="node srv-endpointENB" style="background-color: green;">
 									eNodeB
 								</li>
 										<!-- <li class="node srv-endpoint" style="background-color: green;">
@@ -127,21 +127,21 @@
 							<div class="hero-select">
 								<ul class="levels">
 								  <li class="level bronze" data-level="bronze" data-commitment="500">
-									<input type="radio" name="hero-level" value="bronze">
+									<input type="radio" name="hero-level" value="agreement-dpi-1">
 									<div class="content">
 									  <h6>Bronze</h6>
 									  <!-- <p><span class="cost">$500</span></p> -->
 									</div>
 								  </li>
 								  <li class="level silver" data-level="silver" data-commitment="1000">
-									<input type="radio" name="hero-level" value="silver">
+									<input type="radio" name="hero-level" value="agreement-dpi-1">
 									<div class="content">
 									  <h6>Silver</h6>
 									  <!-- <p><span class="cost">$1,000</span></p> -->
 									</div>
 								  </li>
 								  <li class="level gold" data-level="gold" data-commitment="3000">
-									<input type="radio" name="hero-level" value="gold">
+									<input type="radio" name="hero-level" value="agreement-dpi-1">
 									<div class="content">
 									  <h6>Gold</h6>
 									  <!-- <p><span class="cost">$3,000</span></p> -->
@@ -346,7 +346,7 @@ $( document ).ready(function() {
 
       if ( classAttr.indexOf('vmt') > -1) {
           nodeIconUrl = "/svg/transcode.png";
-          text        = "vMT"
+          text        = "vWatermark"
       }
       else if ( classAttr.indexOf('vsg') > -1) {
           nodeIconUrl = "/svg/vsg.jpg";
@@ -358,7 +358,7 @@ $( document ).ready(function() {
       }
       else if ( classAttr.indexOf('vst') > -1) {
           nodeIconUrl = "/svg/vsg.jpg";
-          text        = "vST"
+          text        = "vObjectTracking"
       }
       else if ( classAttr.indexOf('vtc') > -1) {
           nodeIconUrl = "/svg/vtc.jpg";
@@ -368,9 +368,13 @@ $( document ).ready(function() {
           nodeIconUrl = "/svg/firewall.png";
           text        = "vFW"
       }
-      else if ( classAttr.indexOf('endpoint') > -1) {
+      else if ( classAttr.indexOf('endpointENB') > -1) {
           nodeIconUrl = "/svg/source.png";
-          text        = "Endpoint"
+          text        = "eNodeB"
+      }
+	  else if ( classAttr.indexOf('endpointEPC') > -1) {
+          nodeIconUrl = "/svg/source.png";
+          text        = "EPC"
       }
       else if ( classAttr.indexOf('destination') > -1) {
           nodeIconUrl = "/svg/destination.jpg";
@@ -845,7 +849,7 @@ function drop(ev) {
                   <th>Description</th>
                   <th style="width: 40px"></th>
                 </tr>
-                <tr>
+                <!-- <tr>
                   <td>1</td>
                   <td>Security</td>
                   <td>Firewalling and Detection all in one.</td>
@@ -856,7 +860,7 @@ function drop(ev) {
                   <td>Video Edit</td>
                   <td>Transcoding and watermarking for video streams</td>
                   <td><a href="#"><span class="badge bg-red">X</span></a></td>
-                </tr>
+                </tr> -->
 
 
 

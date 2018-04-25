@@ -50,18 +50,18 @@ Template.catalogns.events({
         	}
 
 			operator = $('.form-group-ops input:checked').val();
-			alert(operator);
+			//alert(operator);
 			sla = $('.hero-select .selected > input').val();
-			alert(sla);
+			//alert(sla);
 			
-			Meteor.call('atosCall',operator, sla, nsname, function(error, results) {
+			/*Meteor.call('atosCall',operator, sla, nsname, function(error, results) {
 				 //results.data should be a JSON object
 				//alert(results);
 				console.log(results);
 				result = results;
-			});
-			
-        	Meteor.call("addNode", nsname, nsdescription, a, b);
+			});*/
+			console.log("operator "+ operator + " sla " + sla);
+        	Meteor.call("addNode", nsname, nsdescription, operator, sla, a, b);
 			
 			
         	alert("NS Created!");

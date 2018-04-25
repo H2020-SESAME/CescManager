@@ -63,7 +63,35 @@ Template.tenor.onDestroyed(function () {
 });
 
 
+Template.qos.onRendered(function () {
 
+    var self = this;
+    if (self.view.isRendered) {
+
+        
+        var body = $('body');
+            body.removeClass();
+            if (Session.get("sidebar")==false){
+              body.addClass("skin-blue-light sidebar-mini sidebar-collapse sidebar-open");
+            }else{
+              body.addClass("skin-blue-light sidebar-mini");
+            }
+
+        $(function () {
+            MeteorAdminLTE.run()
+        });
+      
+    }
+});
+Template.qos.onDestroyed(function () {
+  // deregister from some central store
+  var body = $('body');
+  if (body.hasClass("sidebar-open")){
+    Session.set("sidebar", false);
+  }else{
+    Session.set("sidebar", true);
+  }
+});
 
 
 
@@ -72,7 +100,6 @@ Template.catalogns.onRendered(function () {
     var self = this;
     if (self.view.isRendered) {
 
-        
         var body = $('body');
             body.removeClass();
             if (Session.get("sidebar")==false){

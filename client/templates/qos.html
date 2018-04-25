@@ -1,0 +1,644 @@
+<template name="qos">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+
+
+        </section>
+
+        <!-- Main content -->
+        <section class="content qos-page">
+
+
+            <div class="row" style="margin-bottom:10px;">
+
+                <!-- /.col -->
+            </div>
+
+			<!-- <div class="row" style="margin-bottom:10px;">
+				<div class="col-md-12"><h1>Option 1:</h1></div>
+                <div class="col-md-12">
+
+                    <div class="box op-box">
+						<div class="box-header">
+						  <h3 class="box-title">Table title</h3>
+						</div>
+						<div class="box-body no-padding">
+						  <table class="table table-striped">
+							<tbody>
+							<tr>
+							  <th style="width: 10px">#</th>
+							  <th>Operator</th>
+							  <th>Downlink</th>
+							  <th>Uplink</th>
+							  <th style="width: 50px;">Action</th>
+							</tr>
+
+							<tr>
+							  <td>1.</td>
+							  <td class="op-name">Operator 1</td>
+							  <td><input type="number" value="10000" step="100" min="100" class="kbps kbps-down" /> Kbps</td>
+							  <td><input type="number" value="10000" step="100" min="100" class="kbps kbps-up" /> Kbps</td>
+							  <td><button type="button" class="btn btn-block btn-primary btn-sm btn-op-submit">Submit</button></td>
+							</tr>
+
+							<tr>
+							  <td>2.</td>
+							  <td class="op-name">Operator 2</td>
+							  <td><input type="number" value="9000" step="100" min="100" class="kbps kbps-down" /> Kbps</td>
+							  <td><input type="number" value="5000" step="100" min="100" class="kbps kbps-up" /> Kbps</td>
+							  <td><button type="button" class="btn btn-block btn-primary btn-sm btn-op-submit">Submit</button></td>
+							</tr>
+
+							<tr>
+							  <td>3.</td>
+							  <td class="op-name">Operator 3</td>
+							  <td><input type="number" value="3000" step="100" min="100" class="kbps kbps-down" /> Kbps</td>
+							  <td><input type="number" value="4000" step="100" min="100" class="kbps kbps-up" /> Kbps</td>
+							  <td><button type="button" class="btn btn-block btn-primary btn-sm btn-op-submit">Submit</button></td>
+							</tr>
+
+						    </tbody>
+						  </table>
+						</div>
+					  </div>
+
+                </div>
+            </div> -->
+
+
+			<form id="formqos">
+			<div class="row" style="margin-bottom:10px;">
+				<!-- <div class="col-md-12"><h1>QoS per Operator:</h1></div>
+                <div class="col-md-12">
+
+                    <div class="box op-box-2">
+						<div class="box-header">
+						  <h3 class="box-title">Table title</h3>
+						</div>
+						<div class="box-body no-padding">
+						  <table class="table table-striped">
+							<tbody>
+							<tr>
+							  <th style="width: 10px">#</th>
+							  <th>Operator</th>
+							  <th>Downlink</th>
+							  <th>Uplink</th>
+							  <th style="width: 50px;">Action</th>
+							</tr>
+
+							<tr>
+							  <td>1.</td>
+							  <td class="op-name">Operator 1</td>
+							  <td>
+								<input type="number" id="op1down" value="6000" step="100" min="100" class="kbps kbps-down" />
+								<span>Kbps</span>
+								<div class="progress progress-xs">
+								  <div class="progress-bar" style="width: 100%"></div>
+								</div>
+							  </td>
+							  <td>
+								<input type="number" id="op1up" value="10000" step="100" min="100" class="kbps kbps-up" />
+								<span>Kbps</span>
+								<div class="progress progress-xs">
+								  <div class="progress-bar" style="width: 100%"></div>
+								</div>
+							  </td>
+							  <td><button type="submit" id="btnapply1" class="btn btn-block btn-primary btn-sm btn-op-submit">Apply</button></td>
+							</tr>
+							<tr>
+							  <td>2.</td>
+							  <td class="op-name">Operator 2</td>
+							  <td>
+								<input type="number" value="5000" step="100" min="100" class="kbps kbps-down" />
+								<span>Kbps</span>
+								<div class="progress progress-xs">
+								  <div class="progress-bar" style="width: 100%"></div>
+								</div>
+							  </td>
+							  <td>
+								<input type="number" value="4000" step="100" min="100" class="kbps kbps-up" />
+								<span>Kbps</span>
+								<div class="progress progress-xs">
+								  <div class="progress-bar" style="width: 100%"></div>
+								</div>
+							  </td>
+							  <td><button type="button" class="btn btn-block btn-primary btn-sm btn-op-submit">Apply</button></td>
+							</tr>
+
+							<tr>
+							  <td>3.</td>
+							  <td class="op-name">Operator 3</td>
+							  <td>
+								<input type="number" value="4000" step="100" min="100" class="kbps kbps-down" />
+								<span>Kbps</span>
+								<div class="progress progress-xs">
+								  <div class="progress-bar" style="width: 100%"></div>
+								</div>
+							  </td>
+							  <td>
+								<input type="number" value="1000" step="100" min="100" class="kbps kbps-up" />
+								<span>Kbps</span>
+								<div class="progress progress-xs">
+								  <div class="progress-bar" style="width: 100%"></div>
+								</div>
+							  </td>
+							  <td><button type="button" class="btn btn-block btn-primary btn-sm btn-op-submit">Apply</button></td>
+							</tr>
+
+						    </tbody>
+						  </table>
+						</div>
+					  </div>
+
+                </div> -->
+            </div>
+			</form>
+<!-- ////////////////////////////////////////////////andreas//////////////////////////-->
+
+      <div class="map-container">
+        {{> googleMap name="map" options=mapOptions}}
+      </div>
+	<div>
+	  <button class="btn btn-block btn-primary btn-sm btn-op-submit toggle-soapd">Clear</button>
+	  <button class="btn btn-block btn-primary btn-sm btn-op-submit toggle-soap">Refresh</button>
+	</div>
+
+
+
+	<div class="row" style="margin-bottom:10px;">
+		<div class="col-md-12">
+		  <div class="box box-solid">
+			<div class="box-header with-border">
+			  <h3 class="box-title">Details</h3>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body op-box-2">
+			  <div class="box-group" id="accordion">
+
+
+				<!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+				<div class="panel box box-primary">
+				  <div class="box-header with-border">
+					<h4 class="box-title">
+					  <a data-toggle="collapse" data-parent="#accordion" href="#collapseZero" aria-expanded="false" class="collapsed">
+						Common VNF
+					  </a>
+					</h4>
+				  </div>
+				  <div id="collapseZero" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+					<div class="box-body">
+						<table class="table table-striped">
+							<tbody>
+							<tr>
+							  <th>Parameter</th>
+							  <th>Value</th>
+							</tr>
+							<tr><td>Status</td><td>{{cvnfstatus}}</td></tr>
+							</tbody>
+						</table>
+						<br>
+					</div>
+				  </div>
+				</div>
+
+
+
+				<div class="panel box box-primary">
+				  <div class="box-header with-border">
+					<h4 class="box-title">
+					  <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
+						Operator 1 (VNF1)
+					  </a>
+					</h4>
+				  </div>
+				  <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+					<div class="box-body">
+						<table class="table table-striped">
+							<tbody>
+							<tr>
+							  <th>Parameter</th>
+							  <th>Value</th>
+							</tr>
+
+							<tr>
+							  <td>Status</td>
+							  <td>{{vnf1status}}</td>
+							</tr>
+							<tr>
+								<td>PLMN</td><td>{{vnf1plmn}}</td>
+							</tr>
+							<tr>
+								<td>EPC-IP</td><td>{{vnf1epcip}}</td>
+							</tr>
+							<tr>
+								<td>Max UEs</td>
+								<td>
+									<form class="setvnf1maxue">
+										<input class="soapinput" type="text" name="text" placeholder={{vnf1maxue}} />
+									</form>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+						<br>
+						<table class="table table-striped">
+							<tbody>
+								<tr>
+									<th>Operator</th>
+									<th>Downlink</th>
+									<th>Uplink</th>
+									<th style="width: 50px;">Action</th>
+								</tr>
+							<tr>
+								<td class="op-name">Operator 1</td>
+								<td>
+									<input type="number" id="op1down" value="6000" step="100" min="100" class="kbps kbps-down" />
+									<span>Kbps</span>
+									<div class="progress progress-xs">
+									  <div class="progress-bar" style="width: 100%"></div>
+									</div>
+								</td>
+								<td>
+									<input type="number" id="op1up" value="10000" step="100" min="100" class="kbps kbps-up" />
+									<span>Kbps</span>
+									<div class="progress progress-xs">
+									  <div class="progress-bar" style="width: 100%"></div>
+									</div>
+								</td>
+								<td><button type="submit" id="btnapply1" class="btn btn-block btn-primary btn-sm btn-op-submit">Apply</button></td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				  </div>
+				</div>
+
+				<div class="panel box box-primary">
+				  <div class="box-header with-border">
+					<h4 class="box-title">
+					  <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" class="collapsed">
+						Operator 2 (VNF2)
+					  </a>
+					</h4>
+				  </div>
+				  <div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+					<div class="box-body">
+						<table class="table table-striped">
+							<tbody>
+							<tr>
+							  <th>Parameter</th>
+							  <th>Value</th>
+							</tr>
+
+							<tr>
+							  <td>Status</td>
+							  <td>{{vnf2status}}</td>
+							</tr>
+							<tr>
+								<td>PLMN</td><td>{{vnf2plmn}}</td>
+							</tr>
+							<tr>
+								<td>EPC-IP</td><td>{{vnf2epcip}}</td>
+							</tr>
+							<tr>
+								<td>Max UEs</td>
+								<td>
+									<form class="setvnf1maxue">
+										<input class="soapinput" type="text" name="text" placeholder={{vnf2maxue}} />
+									</form>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+						<br>
+						<table class="table table-striped">
+							<tbody>
+								<tr>
+									<th>Operator</th>
+									<th>Downlink</th>
+									<th>Uplink</th>
+									<th style="width: 50px;">Action</th>
+								</tr>
+							<tr>
+								<td class="op-name">Operator 2</td>
+								<td>
+									<input type="number" id="op2down" value="6000" step="100" min="100" class="kbps kbps-down" />
+									<span>Kbps</span>
+									<div class="progress progress-xs">
+									  <div class="progress-bar" style="width: 100%"></div>
+									</div>
+								</td>
+								<td>
+									<input type="number" id="op2up" value="10000" step="100" min="100" class="kbps kbps-up" />
+									<span>Kbps</span>
+									<div class="progress progress-xs">
+									  <div class="progress-bar" style="width: 100%"></div>
+									</div>
+								</td>
+								<td><button type="submit" id="btnapply2" class="btn btn-block btn-primary btn-sm btn-op-submit">Apply</button></td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				  </div>
+				</div>
+
+
+
+				<div class="panel box box-primary">
+				  <div class="box-header with-border">
+					<h4 class="box-title">
+					  <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" class="collapsed">
+						Small Cell (PNF)
+					  </a>
+					</h4>
+				  </div>
+				  <div id="collapseThree" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+					<div class="box-body">
+						<table class="table table-striped">
+							<tbody>
+							<tr>
+							  <th>Parameter</th>
+							  <th>Value</th>
+							</tr>
+
+							<tr><td>Status</td><td>{{pnfstatus}}</td></tr>
+							<tr><td>PLMN</td><td>{{pnfplmns}}</td></tr>
+							<tr><td>Band</td><td>{{pnfband}}</td></tr>
+							<tr><td>Downlink EARFCN</td><td>{{pnfearfcndl}}</td></tr>
+							<tr><td>Uplink EARFCN</td><td>{{pnfearfcnul}}</td></tr>
+							<tr><td>MOCN status</td><td>{{pnfmocn}}</td></tr>
+							<tr><td>Downlink Bandwidth</td><td>{{pnfdlbw}}</td></tr>
+							<tr><td>Uplink Bandwidth</td><td>{{pnfulbw}}</td></tr>
+							<tr><td>Physical Cell ID</td><td>{{pnfpci}}</td></tr>
+							<tr><td>Cell ID</td><td>{{pnfci}}</td></tr>
+							<tr><td>Tracking Area Code</td><td>{{pnftac}}</td></tr>
+							</tbody>
+						</table>
+					</div>
+				  </div>
+				</div>
+
+
+				<!-- /#accordion -->
+			  </div>
+			</div>
+			<!-- /.box-body -->
+		  </div>
+		  <!-- /.box -->
+		</div>
+	</div>
+
+
+
+    <!-- <h1>Common VNF</h1>
+      <table style="width:100%">
+        <tbody>
+          <tr>
+            <td  class="soaph">Status:</td>
+            <td  class="soapp"> {{cvnfstatus}}</td>
+            <td width=30%> </td>
+          </tr>
+          </tbody>
+      </table>
+    <h1>Operator 1 (VNF1)</h1>
+      <table style="width:100%">
+        <tbody>
+          <tr>
+            <td class="soaph">Status:</td>
+            <td class="soapp"> {{vnf1status}}</td>
+          </tr>
+          <tr >
+            <td class="soaph">PLMN:</td>
+            <td class="soapp"> {{vnf1plmn}}</td>
+          </tr>
+          <tr>
+            <td class="soaph">EPC-IP:</td>
+            <td class="soapp"> {{vnf1epcip}}</td>
+          </tr>
+          <tr>
+            <td class="soaph">Max Downlink Throughput:</td>
+            <td class="soapp"> <form class="setvnf1maxdl"><input class="soapinput" type="text" name="text" placeholder={{vnf1maxdl}} />
+            </form></td>
+          </tr>
+          <tr>
+            <td class="soaph">Max Uplink Throughput:</td>
+            <td class="soapp"> <form class="setvnf1maxul"><input class="soapinput" type="text" name="text" placeholder={{vnf1maxul}} />
+            </form></td>
+          </tr>
+          <tr>
+            <td class="soaph">Max UEs:</td>
+            <td class="soapp"> <form class="setvnf1maxue"><input class="soapinput" type="text" name="text" placeholder={{vnf1maxue}} />
+            </form></td>
+            <td width=30%> </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h1>Operator 2 (VNF2)</h1>
+      <table style="width:100%">
+        <tbody>
+          <tr>
+            <td class="soaph">Status:</td>
+            <td class="soapp"> {{vnf2status}}</td>
+          </tr>
+          <tr >
+            <td class="soaph">PLMN:</td>
+            <td class="soapp"> {{vnf2plmn}}</td>
+          </tr>
+          <tr>
+            <td class="soaph">EPC-IP:</td>
+            <td class="soapp"> {{vnf2epcip}}</td>
+          </tr>
+          <tr>
+            <td class="soaph">Max Downlink Throughput:</td>
+            <td class="soapp"> <form class="setvnf2maxdl"><input class="soapinput" type="text" name="text" placeholder={{vnf2maxdl}} />
+            </form></td>
+          </tr>
+          <tr>
+            <td class="soaph">Max Uplink Throughput:</td>
+            <td class="soapp"> <form class="setvnf2maxul"><input class="soapinput" type="text" name="text" placeholder={{vnf2maxul}} />
+            </form></td>
+          </tr>
+          <tr>
+            <td class="soaph">Max UEs:</td>
+            <td class="soapp"> <form class="setvnf2maxue"><input class="soapinput" type="text" name="text" placeholder={{vnf2maxue}} />
+            </form></td>
+            <td width=30%> </td>
+          </tr>
+        </tbody>
+      </table>
+      <h1>Small Cell (PNF)</h1>
+      <table style="width:100%">
+        <tbody>
+          <tr>
+            <td class="soaph">Status:</td>
+            <td class="soapp"> {{pnfstatus}}</td>
+            <td width=30%> </td>
+          </tr>
+          <tr >
+            <td class="soaph">PLMNs:</td>
+            <td class="soapp"> {{pnfplmns}}</td>
+          </tr>
+          <tr >
+            <td class="soaph">Band:</td>
+            <td class="soapp"> {{pnfband}}</td>
+          </tr>
+          <tr>
+            <td class="soaph">Downlink EARFCN:</td>
+            <td class="soapp"> {{pnfearfcndl}}</td>
+          </tr>
+          <tr>
+            <td class="soaph">Uplink EARFCN:</td>
+            <td class="soapp"> {{pnfearfcnul}}</td>
+          </tr>
+          <tr>
+            <td class="soaph">MOCN Status:</td>
+            <td class="soapp"> {{pnfmocn}}</td>
+          </tr>
+        <tr>
+            <td class="soaph">Downlink Bandwidth:</td>
+            <td class="soapp"> {{pnfdlbw}}</td>
+          </tr>
+          <tr>
+            <td class="soaph">Uplink Bandwidth:</td>
+            <td class="soapp"> {{pnfulbw}}</td>
+          </tr>
+          <tr>
+            <td class="soaph">Physical Cell ID:</td>
+            <td class="soapp"> {{pnfpci}}</td>
+          </tr>
+          <tr>
+            <td class="soaph">Cell ID:</td>
+            <td class="soapp"> {{pnfci}}</td>
+          </tr>
+          <tr>
+            <td class="soaph">Tracking Area Code:</td>
+            <td class="soapp">{{pnftac}}</td>
+          </tr>
+
+        </tbody>
+      </table> -->
+
+<!--////////////////////////////////////////////////andreas////////////////////////// -->
+
+
+
+
+
+
+
+		</section>
+        <!-- /.content -->
+
+
+    </div>
+    <!-- /.content-wrapper -->
+
+	<!-- Document ready function -->
+	<script>
+
+		$(document).ready(function() {
+
+
+			//========================= OPTION 1 ================================
+
+			$('.op-box .btn-op-submit').on('click',function(){
+				var op   = $(this).parent().parent().find(".op-name").html();
+				var down = $(this).parent().parent().find(".kbps-down").val();
+				var up   = $(this).parent().parent().find(".kbps-up").val();
+
+				console.log(op, down, up);
+				
+			});
+
+			//========================= OPTION 2 ================================
+
+			var max_down_kbps = 10000;
+			var min_down_kbps = 100;
+			var max_up_kbps = 10000;
+			var min_up_kbps = 100;
+
+			$('.op-box-2 .kbps-down').attr('max',max_down_kbps);
+			$('.op-box-2 .kbps-up').attr('max',max_up_kbps);
+
+
+
+			$('.op-box-2 .btn-op-submit').on('click',function(){
+				var op   = $(this).parent().parent().find(".op-name").html();
+				var down = $(this).parent().parent().find(".kbps-down").val();
+				var up   = $(this).parent().parent().find(".kbps-up").val();
+
+				console.log(op, down, up);
+				
+			});
+
+
+			function update_progress_bars_downlink() {
+				$('.op-box-2 .kbps-down').each(function(index){
+					var bar_element = $(this).siblings('.progress').find('.progress-bar');
+					var percentage = $(this).val() / max_down_kbps * 100;
+					var color_class = "";
+
+					if (percentage<=25) {
+						color_class = "progress-bar-danger";
+					}
+					else if (percentage<=50) {
+						color_class = "progress-bar-primary";
+					}
+					else if (percentage<=75) {
+						color_class = "progress-bar-yellow";
+					}
+					else  {
+						color_class = "progress-bar-success";
+					}
+
+					bar_element.removeClass("progress-bar-danger progress-bar-primary progress-bar-yellow progress-bar-success");
+					bar_element.addClass(color_class);
+					bar_element.css('width',(percentage+"%"));
+				});
+			}
+
+			function update_progress_bars_uplink() {
+				$('.op-box-2 .kbps-up').each(function(index){
+					var bar_element = $(this).siblings('.progress').find('.progress-bar');
+					var percentage = $(this).val() / max_up_kbps * 100;
+					var color_class = "";
+
+					if (percentage<=25) {
+						color_class = "progress-bar-danger";
+					}
+					else if (percentage<=50) {
+						color_class = "progress-bar-primary";
+					}
+					else if (percentage<=75) {
+						color_class = "progress-bar-yellow";
+					}
+					else  {
+						color_class = "progress-bar-success";
+					}
+
+					bar_element.removeClass("progress-bar-danger progress-bar-primary progress-bar-yellow progress-bar-success");
+					bar_element.addClass(color_class);
+					bar_element.css('width',(percentage+"%"));
+				});
+			}
+
+			update_progress_bars_downlink();
+			update_progress_bars_uplink();
+
+			$('.op-box-2 .kbps-down').on('input',function(){
+				update_progress_bars_downlink();
+			});
+
+			$('.op-box-2 .kbps-up').on('input',function(){
+				update_progress_bars_uplink();
+			});
+
+		});
+
+	</script>
+
+</template>

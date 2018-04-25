@@ -36,6 +36,7 @@
                   <th style="width: 10px">Instance ID</th>
                   <th>NS ID</th>
                   <th>NS Name</th>
+				  <th>Operator</th>
                   <th>Deployed NS Configuration</th>
                   <th>State</th>
                   <th style="width: 40px">Actions</th>
@@ -73,6 +74,7 @@
                 <tbody><tr>
                   <th style="width: 10px">ID</th>
                   <th>Name</th>
+				  <th>Operator</th>
                   <th>Description</th>
                   <th style="width: 40px"></th>
                 </tr>
@@ -118,17 +120,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">vTU</h4>
+        <h4 class="modal-title" id="myModalLabel">vDPI</h4>
       </div>
       <div class="modal-body">
-        <div class="form-group">
-                  <label for="exampleInputEmail1">Framerate</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="30">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Resolution</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="1024x768">
-                </div>
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Save Configuration</button>
@@ -148,15 +143,7 @@
       <div class="modal-body">
         <div class="form-group">
                   <label for="exampleInputEmail1">IP</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="192.168.1.50">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Protocol</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="UDP">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Port</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="5001">
+                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="172.21.5.80">
                 </div>
                 
       </div>
@@ -200,6 +187,7 @@
               <tr>
                   <td>{{_id}}</td>
                   <td>{{nsname}}</td>
+				  <td>{{operator}}</td>
                   <td>{{description}}<br>{{gmts}}</td>
                   <td><a href="#" id="deploy" nsid="{{_id}}"><span class="badge bg-blue">DEPLOY</span></a></td>
                 </tr>
@@ -213,10 +201,12 @@
                   <td>{{_id}}</td>
                   <td>{{nsid}}</td>
                   <td>{{nsname}}</td>
-                  <td>{{{nsconfig}}}</td>
+				  <td>{{operator}}</td>
+                  <td>{{{public_ip}}}</td>
                   <td>{{state}}</td>
-                  <td><a href="#" id="start" dnsid="{{_id}}"><span class="badge bg-green">{{startstop}}</span></a>
-                  <a href="#" id="delete" dnsid="{{_id}}"><span class="badge bg-red">DELETE</span></a></td>
+                  <td><a href="#" id="start" cnsid="{{nsid}}" dnsid="{{_id}}"><span class="badge bg-green">{{startstop}}</span></a>
+                  <a href="#" id="delete" dnsid="{{_id}}"><span class="badge bg-red">DELETE</span></a>
+				  <a href="#" id="flip" cnsid="{{nsid}}" dnsid="{{_id}}"><span class="badge bg-blue">GET IP</span></a></td>
                 </tr>
                          
 

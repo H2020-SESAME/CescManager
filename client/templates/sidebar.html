@@ -17,27 +17,27 @@
               <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
 			-->
-			
+
 			<img src="/images/logo.png" width="100%"/>
           </div>
-          
+
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
-            <li class="header">MAIN NAVIGATION</li>
+            <li class="header">Main Navigation</li>
             <li class="treeview {{#if currentRouteIs 'dashboard'}}active{{/if}}">
               <a href="#" id="dashboard">
-                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                <i class="fa fa-home"></i> <span>Dashboard</span>
               </a>
             </li>
             <li class="treeview {{#if currentRouteIs 'catalogns'}}active
             {{else}}
             {{#if currentRouteIs 'catalogvnf'}}active{{/if}}
-           
+
             {{/if}}">
-              <a href="#" id="">
+              <a href="#" id="catalog">
                 <i class="fa fa-folder-open"></i> <span>Catalog</span>
               </a>
-              <ul class="treeview-menu">
+              <ul id="treecatns" class="treeview-menu">
                 <li><a href="#" id="catalogns" style="{{#if currentRouteIs 'catalogns'}}color: black;{{/if}}"><i class="fa fa-circle-o"></i>Network Services</a></li>
                 <li><a href="#" id="catalogvnf" style="{{#if currentRouteIs 'catalogvnf'}}color: black;{{/if}}"><i class="fa fa-circle-o"></i>Virtual Network Functions</a></li>
               </ul>
@@ -45,7 +45,7 @@
             <li class="treeview {{#if currentRouteIs 'operationalns'}}active
             {{else}}
             {{#if currentRouteIs 'operationalvnf'}}active{{/if}}
-            
+
             {{/if}}">
               <a href="#" id="">
                 <i class="fa fa-cog"></i> <span>Operational</span>
@@ -70,19 +70,24 @@
                 <i class="fa fa-bar-chart"></i> <span>Monitoring</span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#" id="monitoringns" style="{{#if currentRouteIs 'monitoringns'}}color: black;{{/if}}"><i class="fa fa-circle-o"></i>Network Services</a></li>
-                <li><a href="#" id="monitoringvnf" style="{{#if currentRouteIs 'monitoringvnf'}}color: black;{{/if}}"><i class="fa fa-circle-o"></i>Virtual Network Functions</a></li>
-                <li><a href="#" id="monitoringcompute" style="{{#if currentRouteIs 'monitoringcompute'}}color: black;{{/if}}"><i class="fa fa-circle-o"></i>Compute Resources</a></li>
-                <li><a href="#" id="monitoringnetwork" style="{{#if currentRouteIs 'monitoringnetwork'}}color: black;{{/if}}"><i class="fa fa-circle-o"></i>Network Resources</a></li>
+                <li><a href="#" id="monitoringns" style="{{#if currentRouteIs 'monitoringns'}}color: black;{{/if}}"><i class="fa fa-circle-o"></i>SLA NS Violations</a></li>
+                <li><a href="#" id="monitoringcompute" style="{{#if currentRouteIs 'monitoringcompute'}}color: black;{{/if}}"><i class="fa fa-circle-o"></i>Node Resources</a></li>
+				<li><a href="#" id="monitoringvnf" style="{{#if currentRouteIs 'monitoringvnf'}}color: black;{{/if}}"><i class="fa fa-circle-o"></i>NS Resources</a></li>
+                <li><a href="#" id="monitoringnetwork" style="{{#if currentRouteIs 'monitoringnetwork'}}color: black;{{/if}}"><i class="fa fa-circle-o"></i>Radio Resources</a></li>
               </ul>
+            </li>
+			<li class="treeview {{#if currentRouteIs 'qos'}}active{{/if}}">
+              <a href="#" id="qos">
+                <i class="fa fa-dashboard"></i> <span>QoS</span>
+              </a>
             </li>
 			<li class="treeview {{#if currentRouteIs 'tenor'}}active{{/if}}">
               <a href="#" id="tenor">
-                <i class="fa fa-dashboard"></i> <span>Tenor</span>
+                <i class="fa fa-sitemap"></i> <span>Tenor</span>
               </a>
             </li>
 			
-            
+
           </ul>
         </section>
         <!-- /.sidebar -->
